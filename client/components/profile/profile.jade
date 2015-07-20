@@ -1,0 +1,33 @@
+template(name='profile')
+  //- смена контекста, и блок внутри не будет отрендерен,
+  //- если такого свойства нет
+  +with user
+    .profile-left-side
+      .panel.panel-default
+        .panel-body
+          .container-fluid
+            .row.row-bottom
+              //- аватар пользователя, параметром передаем конструкции
+              //- <ключ>=<значение>, которые сложатся в один объект
+              //- и станут контекстом шаблона userAvatar
+              +userAvatar user=this size=200 class='profile-left-side-avatar'
+            .row
+              //- радактируемые поля для текущего пользователя
+              +editableField fieldUsername
+              +editableField fieldName
+              +editableField fieldEmail
+      if isHomePage
+        label.btn.btn-default(for='newPhoto') Upload photo
+        .hide
+            input#newPhoto(type='file', accept='image/*')
+
+  .profile-right-side
+    h1 Board
+    .row
+      +each photos
+        +if isUploaded
+          .col-xs-6.col-md-4.col-lg-4
+            +boardCard
+    .row.row-bottom
+      .col-xs-12
+        +nextPageButton name='photos'

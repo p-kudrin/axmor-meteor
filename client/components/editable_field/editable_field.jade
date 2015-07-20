@@ -1,0 +1,20 @@
+template(name='editableField')
+  .form-group.EditableFiled
+    if data.isEditable
+      div(class=inputGroupClass)
+        if hasIcon
+          .input-group-addon
+            if icon
+              i.fa.fa-fw(class='fa-{{icon}}')
+            else
+              i.fa.fa-fw=iconSymbol
+        input.Field.form-control(placeholder=placeholder, value=value, name=name)
+    else
+      if defaultValue
+        span.form-control-static
+          if hasIcon
+            if icon
+              i.fa.fa-fw(class='fa-{{icon}}')
+            else
+              i.fa.fa-fw=iconSymbol
+          = defaultValue
