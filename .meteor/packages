@@ -25,5 +25,4 @@ meteorhacks:npm
 npm-container
 cfs:standard-packages
 cfs:gridfs
-cfs:graphicsmagick
 cfs:filesystem

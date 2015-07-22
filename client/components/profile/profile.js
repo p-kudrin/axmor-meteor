@@ -1,24 +1,3 @@
-var currentImage = null;
-
-var uploadImage = function() {
-  var reader;
-  if (currentImage) {
-    reader = new FileReader;
-    reader.onload = function(e) {
-      return Meteor.call('uploadImage', Meteor.userId(), e.target.result, function(error) {
-        if (error) {
-          return console.log(error.message);
-        } else {
-          return console.log('Image uploaded');
-        }
-      });
-    };
-    return reader.readAsBinaryString(currentImage);
-  }
-};
-
-
-
 Template.profile.helpers({
   fieldUsername: function() {
     return {
@@ -65,24 +44,13 @@ Template.profile.events({
   },
   'change #newPhoto': function(event, template) {
     FS.Utility.eachFile(event, function(file) {
-      file.owner = Meteor.userId();
-        Images.insert(file, function (err, fileObj) {
+        var fsFile = new FS.File(file);
+        fsFile.owner = Meteor.userId();
+        Images.insert(fsFile, function (err, fileObj) {
           if (err){
              console.log('error insert');
           } else {
-            console.log('image insert');
-            console.log('fileObj url' + fileObj.url());
-            var path = '/uploads/images-' + fileObj._id + "-" + fileObj.name();
-            PhotosCollection.create({
-              owner: Meteor.userId(),
-              url: path
-            }, function (err, id) {
-              if (err) {
-                console.log(err.message);
-              } else {
-                console.log('Photo uploaded!');
-              }
-            });
+            console.log('image insert');                    
           }
         });
     });

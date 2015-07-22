@@ -1,7 +1,7 @@
 template(name='boardCard')
   .panel.panel-default.board-card-panel
     .panel-body.board-card-description
-      img(src="{{this.url}}", class="")
+      img(src="{{this.url}}", class="boardImage")
     .panel-footer.board-card-footer
       +with getOwner
         +userAvatar user=this size=20

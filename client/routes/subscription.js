@@ -10,10 +10,8 @@ SubscriptionController = RouteController.extend({
 		console.log('Subscription Controller');
     this.render();
   },
-  subscriptions: function () {
-    return [this.subscribe('users'),
-            this.subscribe('profile'),
-            this.subscribe('images')];
+  waitOn: function () {
+    return [this.subscribe('images')];
   },
   data: function() {
     if (this.isUserPresent()) {

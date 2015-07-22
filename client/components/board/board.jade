@@ -1,0 +1,9 @@
+template(name='board')
+	.row
+		+each photos
+			.col-xs-6.col-md-4.col-lg-4
+				+if isUploaded
+					+boardCard
+	.row.row-bottom
+		.col-xs-12
+			+nextPageButton name='photos'

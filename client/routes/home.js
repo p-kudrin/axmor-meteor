@@ -8,9 +8,8 @@ HomeController = RouteController.extend({
   	},
   	waitOn: function() {
     	if (this.isUserPresent()) {
-      		return [this.subscribe('profile'),
-                  this.subscribe('photos', Meteor.userId()),
-                  this.subscribe('images')];
+      		return [this.subscribe('profile'),                  
+                  this.subscribe('images', Meteor.userId())];
     	}
   	},
   	data: function() {

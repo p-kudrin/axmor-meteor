@@ -6,8 +6,6 @@ Template.subscribeUser.events({
       		return;
     	}
 		var acc = UsersCollection.findOne({_id: Meteor.userId()});
-		console.log('accId : ' + acc._id + ' userId: ' + user._id);
 		acc.subscribeUser(user._id);
-		console.log('subscribe!!');
 	}
 });

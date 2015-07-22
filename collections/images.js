@@ -1,34 +1,7 @@
-var imageStore = new FS.Store.FileSystem('images', {
-	path: '/meteor/axmor-meteor/public/uploads'
-});
+var imageStore = new FS.Store.FileSystem('images');
 
 Images = new FS.Collection('images', {
  stores: [imageStore]
-});
-
-_.extend(Images, {
-  findByUser: function(userId, options) {
-    if (userId == null) {
-      userId = Meteor.userId();
-    }
-    return Images.find(
-      {
-        owner: userId
-      }
-      , options);
-  },
-  findByUsers: function(users, options) {
-    if (!users) {
-      var acc = UsersCollection.findOne({_id: Meteor.userId()});
-      users = acc.profile.subscribers;
-    }
-    return Images.find({
-      owner: {$in: users}
-    }, options);
-  },
-  getOwner: function () {
-    return UsersCollection.findOne(this.owner);
-  }
 });
 
 Images.deny({
@@ -59,6 +32,30 @@ Images.allow({
  download: function(){
  return true;
  }
+});
+
+_.extend(Images, {
+  findByUser: function(userId, options) {
+    if (userId == null) {
+      userId = Meteor.userId();
+    }
+    return Images.find(
+      {
+        owner: userId
+      }
+      , options);
+  },
+  findByUsers: function(users, options) {
+    if (!users) {      
+      var acc = UsersCollection.findOne({_id: Meteor.userId()});
+      console.log('findByUsers acc ' + acc);
+      users = acc.profile.subscribers;
+    }
+    console.log('findByUsers users ' + users);
+    return Images.find({
+      owner: {$in: users}
+    }, options);
+  }
 });
 
 this.ImagesCollection = Images;

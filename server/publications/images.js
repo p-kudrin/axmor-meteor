@@ -9,11 +9,14 @@ Meteor.publish('images', function(userId, limit){
     }
   };
   var cursor;
-  if (userId) {
-    cursor = ImagesCollection.find();
+  if (userId) {    
+    cursor = ImagesCollection.find({
+      owner: userId
+    });
   } else {
-    //var acc = UsersCollection.findOneUser(this.userId);
-    cursor = ImagesCollection.find();
+    var acc = UsersCollection.findOneUser(this.userId);
+    console.log('acc ' + acc);
+    cursor = ImagesCollection.findByUsers(acc.profile.subscribers);
   }
   return cursor
 });

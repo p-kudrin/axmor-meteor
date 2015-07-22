@@ -26,8 +26,7 @@ Accounts.onCreateUser(function (options, user) {
 
 /*Meteor.startup(function () {
   console.log('start remove');
-  UsersCollection.remove({});
+  //UsersCollection.remove({});
   ImagesCollection.remove({});
-  PhotosCollection.remove({});
   console.log('finish!!');
 });*/
